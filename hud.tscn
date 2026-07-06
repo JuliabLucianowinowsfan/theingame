@@ -1,0 +1,286 @@
+[gd_scene format=3 uid="uid://b30o345ok5oo5"]
+
+[ext_resource type="Texture2D" uid="uid://8mscu1gk7kcw" path="res://juli_lc.png" id="1_37p78"]
+[ext_resource type="Texture2D" uid="uid://dr0xrhkgwal5" path="res://Sprite-0009.png" id="2_64ctp"]
+[ext_resource type="Texture2D" uid="uid://b50bnwvcet05d" path="res://mobile toouch/mobile.png" id="3_8sq4i"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_n2snw"]
+font_size = 32
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="GDScript" id="GDScript_n2snw"]
+resource_name = "Coins-HUD"
+script/source = "extends Label
+
+func _process(delta):
+	text = str(Coins.coins)
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pdq0q"]
+atlas = ExtResource("2_64ctp")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w14il"]
+atlas = ExtResource("2_64ctp")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4etq"]
+atlas = ExtResource("2_64ctp")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4fra"]
+atlas = ExtResource("2_64ctp")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8sq4i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pdq0q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w14il")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4etq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o4fra")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_64ctp"]
+resource_name = "android_offset"
+script/source = "extends Control
+
+func _ready():
+	if OS.has_feature(\"android\"):
+		var margin := 172
+		var scrsize := get_viewport().get_visible_rect().size
+		
+		position.x = scrsize.x - size.x - margin
+		position.y = 100
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_64ctp"]
+font_size = 32
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8sq4i"]
+font_size = 25
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="GDScript" id="GDScript_37p78"]
+resource_name = "lives"
+script/source = "extends Label
+
+@warning_ignore(\"unused_parameter\")
+func _process(_delta):
+	text = str(Lives.Lives)
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_640wx"]
+atlas = ExtResource("3_8sq4i")
+region = Rect2(0, 0, 256, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a2258"]
+atlas = ExtResource("3_8sq4i")
+region = Rect2(256, 0, 256, 0)
+
+[sub_resource type="GDScript" id="GDScript_640wx"]
+resource_name = "jump butt"
+script/source = "extends TouchScreenButton
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _ready():
+	var margin := 172
+	var scrsize := get_viewport().get_visible_rect().size
+	
+	position.x = scrsize.x - 64 - margin
+"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1xsix"]
+load_path = "res://.godot/imported/mobile.png-97a5017a8365ea81287e8ce914562bf9.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rftc2"]
+atlas = SubResource("CompressedTexture2D_1xsix")
+region = Rect2(607, 17, 61, 86)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_61f8s"]
+load_path = "res://.godot/imported/mobile.png-97a5017a8365ea81287e8ce914562bf9.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g10ll"]
+atlas = SubResource("CompressedTexture2D_61f8s")
+region = Rect2(863, 25, 61, 78)
+
+[sub_resource type="BitMap" id="BitMap_gpiub"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_amv7k"]
+size = Vector2(61, 86)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1fv7p"]
+atlas = ExtResource("3_8sq4i")
+region = Rect2(1180, 108, 89, 49)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4u2vk"]
+load_path = "res://.godot/imported/mobile.png-97a5017a8365ea81287e8ce914562bf9.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4q17s"]
+atlas = SubResource("CompressedTexture2D_4u2vk")
+region = Rect2(1436, 117, 89, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8sq4i"]
+size = Vector2(89, 49)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2d608"]
+load_path = "res://.godot/imported/mobile.png-97a5017a8365ea81287e8ce914562bf9.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w71nf"]
+atlas = SubResource("CompressedTexture2D_2d608")
+region = Rect2(1631, 161, 61, 86)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_615i1"]
+load_path = "res://.godot/imported/mobile.png-97a5017a8365ea81287e8ce914562bf9.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pw7dr"]
+atlas = SubResource("CompressedTexture2D_615i1")
+region = Rect2(1887, 169, 61, 78)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_640wx"]
+size = Vector2(61, 86)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ap7yk"]
+load_path = "res://.godot/imported/mobile.png-97a5017a8365ea81287e8ce914562bf9.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5kc73"]
+atlas = SubResource("CompressedTexture2D_ap7yk")
+region = Rect2(2054, 108, 88, 49)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bp16l"]
+load_path = "res://.godot/imported/mobile.png-97a5017a8365ea81287e8ce914562bf9.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5iihh"]
+atlas = SubResource("CompressedTexture2D_bp16l")
+region = Rect2(2310, 116, 88, 41)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a2258"]
+size = Vector2(88, 49)
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=914242102]
+
+[node name="Label" type="Label" parent="." unique_id=1463090835]
+z_index = 99
+offset_left = 58.0
+offset_top = 64.0
+offset_right = 164.0
+offset_bottom = 113.0
+localize_numeral_system = false
+text = "0
+"
+label_settings = SubResource("LabelSettings_n2snw")
+horizontal_alignment = 1
+script = SubResource("GDScript_n2snw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1205427324]
+z_index = 98
+position = Vector2(111.99999, 88)
+scale = Vector2(2.75, 2.75)
+sprite_frames = SubResource("SpriteFrames_8sq4i")
+autoplay = "default"
+
+[node name="Control" type="Control" parent="." unique_id=2109480344]
+visible = false
+layout_mode = 3
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 160.0
+offset_top = -58.0
+offset_right = 160.0
+offset_bottom = -58.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+script = SubResource("GDScript_64ctp")
+
+[node name="JuliLc" type="Sprite2D" parent="Control" unique_id=2092888339]
+z_index = 99
+position = Vector2(-32, -24)
+texture = ExtResource("1_37p78")
+
+[node name="name" type="Label" parent="Control" unique_id=1916747996]
+z_index = 99
+layout_mode = 0
+offset_left = 8.0
+offset_top = -64.0
+offset_right = 114.0
+offset_bottom = -19.0
+text = "Juliano"
+label_settings = SubResource("LabelSettings_64ctp")
+
+[node name="Label2" type="Label" parent="Control" unique_id=1587347467]
+z_index = 99
+layout_mode = 0
+offset_left = 40.0
+offset_top = -24.0
+offset_right = 109.0
+offset_bottom = 11.0
+text = "count"
+label_settings = SubResource("LabelSettings_8sq4i")
+script = SubResource("GDScript_37p78")
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="." unique_id=1969990700]
+position = Vector2(-192, 384)
+scale = Vector2(0.75, 0.75)
+texture_normal = SubResource("AtlasTexture_640wx")
+texture_pressed = SubResource("AtlasTexture_a2258")
+passby_press = true
+action = "action_jump"
+visibility_mode = 1
+script = SubResource("GDScript_640wx")
+
+[node name="TouchScreenButton2" type="TouchScreenButton" parent="." unique_id=1659375748]
+position = Vector2(184, 336)
+scale = Vector2(1.5, 1.5)
+texture_normal = SubResource("AtlasTexture_rftc2")
+texture_pressed = SubResource("AtlasTexture_g10ll")
+bitmask = SubResource("BitMap_gpiub")
+shape = SubResource("RectangleShape2D_amv7k")
+passby_press = true
+action = "dpad_up"
+visibility_mode = 1
+
+[node name="TouchScreenButton3" type="TouchScreenButton" parent="." unique_id=82534534]
+position = Vector2(264, 456)
+scale = Vector2(1.5, 1.5)
+texture_normal = SubResource("AtlasTexture_1fv7p")
+texture_pressed = SubResource("AtlasTexture_4q17s")
+shape = SubResource("RectangleShape2D_8sq4i")
+passby_press = true
+action = "dpad_right"
+visibility_mode = 1
+
+[node name="TouchScreenButton4" type="TouchScreenButton" parent="." unique_id=480860540]
+position = Vector2(184, 528)
+scale = Vector2(1.5, 1.5)
+texture_normal = SubResource("AtlasTexture_w71nf")
+texture_pressed = SubResource("AtlasTexture_pw7dr")
+shape = SubResource("RectangleShape2D_640wx")
+passby_press = true
+action = "dpad_down"
+visibility_mode = 1
+
+[node name="TouchScreenButton5" type="TouchScreenButton" parent="." unique_id=409025496]
+position = Vector2(64, 458)
+scale = Vector2(1.5, 1.5)
+texture_normal = SubResource("AtlasTexture_5kc73")
+texture_pressed = SubResource("AtlasTexture_5iihh")
+shape = SubResource("RectangleShape2D_a2258")
+passby_press = true
+action = "dpad_left"
+visibility_mode = 1

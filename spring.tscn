@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://coqabibh0yxis"]
+
+[ext_resource type="Texture2D" uid="uid://dnmjqixy3k645" path="res://spring.png" id="1_ka4py"]
+[ext_resource type="Script" uid="uid://iyysdckdo8dq" path="res://spring.gd" id="2_boyml"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_boyml"]
+atlas = ExtResource("1_ka4py")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hpppm"]
+atlas = ExtResource("1_ka4py")
+region = Rect2(32, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gvkgp"]
+atlas = ExtResource("1_ka4py")
+region = Rect2(64, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjfja"]
+atlas = ExtResource("1_ka4py")
+region = Rect2(96, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cjq2r"]
+atlas = ExtResource("1_ka4py")
+region = Rect2(128, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5mrsx"]
+atlas = ExtResource("1_ka4py")
+region = Rect2(160, 0, 32, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1ebh5"]
+animations = [{
+"frames": [{
+"duration": 0.01,
+"texture": SubResource("AtlasTexture_boyml")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hpppm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gvkgp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xjfja")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cjq2r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5mrsx")
+}, {
+"duration": 0.01,
+"texture": SubResource("AtlasTexture_boyml")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r7616"]
+size = Vector2(32, 16)
+
+[node name="Spring" type="Node2D" unique_id=164991664]
+position = Vector2(-32, 0)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1760476035]
+position = Vector2(0, -48)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_1ebh5")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=541224585]
+scale = Vector2(2, 2)
+script = ExtResource("2_boyml")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1218246848]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_r7616")
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

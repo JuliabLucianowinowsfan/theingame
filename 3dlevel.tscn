@@ -1,0 +1,574 @@
+[gd_scene format=3 uid="uid://cv36jmhmg3bhq"]
+
+[ext_resource type="Texture2D" uid="uid://cgrugiw22y3ks" path="res://juliano.png" id="1_64chr"]
+[ext_resource type="AudioStream" uid="uid://0k2hc6w333de" path="res://sfx_movement_jump1.wav" id="2_fxnvx"]
+
+[sub_resource type="GDScript" id="GDScript_64chr"]
+resource_name = "3d_move"
+script/source = "extends CharacterBody3D
+
+
+const SPEED = 1200.0
+const JUMP_VELOCITY = 300
+const ACCELERATION = 5.0
+const FRICTION = 6.0
+const SKICTION = 30.0
+const  gravity = 500
+# juliano is actually not fat anymore in 3d
+
+func _physics_process(delta: float) -> void:
+	# Add the gravity.
+	if not is_on_floor():
+		velocity.y -= gravity * delta
+
+	# Handle jump.
+	if Input.is_action_just_pressed(\"action_jump\") and is_on_floor():
+		$JumpSnd.play()
+		velocity.y = JUMP_VELOCITY + abs(velocity.x) * 0.1
+
+	# Get the input direction and handle the movement/deceleration.
+	# As good practice, you should replace UI actions with custom gameplay actions.
+	var direction := Input.get_axis(\"dpad_left\",\"dpad_right\")
+	if direction != 0:
+		if sign(direction) != sign(velocity.x) and abs(velocity.x) > 50:
+			velocity.x = move_toward(
+				velocity.x,
+				0,
+				SKICTION
+			)
+		
+		else: 
+			velocity.x = move_toward(
+				velocity.x,
+				direction * SPEED,
+				ACCELERATION
+			)
+	else:
+		velocity.x = move_toward(
+			velocity.x,
+			0,
+			FRICTION
+			)
+	move_and_slide()
+	anim_jul()
+
+#  Start of the animations... im lazy
+
+func anim_jul():
+	var direction := Input.get_axis(\"dpad_left\",\"dpad_right\")
+	# Commit arson.. I- I mean flip the sprite
+	if velocity.x > 0:
+		$\"animations Juli\".flip_h = false
+	elif velocity.x < 0:
+		$\"animations Juli\".flip_h = true
+	# Is he airborne?
+	if not is_on_floor():
+		if velocity.y > 0:
+			$\"animations Juli\".play(\"jump\")
+		else:
+			$\"animations Juli\".play(\"fall\")
+			
+	# Ok, hes not. Hes on the floor then.
+	elif direction != 0 and abs(velocity.x) > 1 and sign(direction) != sign(velocity.x):
+		$\"animations Juli\".play(\"skeddadle\")
+		
+	elif abs(velocity.x) > 1199:
+		$\"animations Juli\".play(\"run\")
+		
+	elif abs(velocity.x) > 1:
+		$\"animations Juli\".play(\"walk\")
+		
+	# Neither? then hes standing.
+	else:
+		$\"animations Juli\".play(\"idle\")
+		
+	# Minor sprites
+	if Input.is_action_pressed(\"dpad_down\") and velocity.x < 10 and is_on_floor():	
+		$\"animations Juli\".play(\"crouch\")
+	
+	if Input.is_action_pressed(\"dpad_up\") and velocity.x < 10 and is_on_floor():	
+		$\"animations Juli\".play(\"look up\")
+"
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fxnvx"]
+radius = 0.37109375
+height = 1.3393555
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hbghi"]
+atlas = ExtResource("1_64chr")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hn12h"]
+atlas = ExtResource("1_64chr")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ihfcg"]
+atlas = ExtResource("1_64chr")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rka8t"]
+atlas = ExtResource("1_64chr")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5hph3"]
+atlas = ExtResource("1_64chr")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j7kpp"]
+atlas = ExtResource("1_64chr")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bjebc"]
+atlas = ExtResource("1_64chr")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5rr72"]
+atlas = ExtResource("1_64chr")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gyffv"]
+atlas = ExtResource("1_64chr")
+region = Rect2(1024, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1pe0h"]
+atlas = ExtResource("1_64chr")
+region = Rect2(1152, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_27bay"]
+atlas = ExtResource("1_64chr")
+region = Rect2(1280, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sof0w"]
+atlas = ExtResource("1_64chr")
+region = Rect2(1408, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ggavl"]
+atlas = ExtResource("1_64chr")
+region = Rect2(1536, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ubhxj"]
+atlas = ExtResource("1_64chr")
+region = Rect2(1664, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_65or1"]
+atlas = ExtResource("1_64chr")
+region = Rect2(1792, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lhbbi"]
+atlas = ExtResource("1_64chr")
+region = Rect2(1920, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dhlpb"]
+atlas = ExtResource("1_64chr")
+region = Rect2(2304, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kxm1x"]
+atlas = ExtResource("1_64chr")
+region = Rect2(2048, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uo4jt"]
+atlas = ExtResource("1_64chr")
+region = Rect2(2176, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m6v0v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hbghi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hn12h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ihfcg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rka8t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5hph3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j7kpp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bjebc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5rr72")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gyffv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1pe0h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_27bay")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sof0w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ggavl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ubhxj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_65or1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lhbbi")
+}],
+"loop": false,
+"name": &"all frames",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lhbbi")
+}],
+"loop": false,
+"name": &"crouch",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dhlpb")
+}],
+"loop": false,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ihfcg")
+}],
+"loop": false,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hbghi")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hn12h")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ubhxj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_65or1")
+}],
+"loop": false,
+"name": &"look up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sof0w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ggavl")
+}],
+"loop": true,
+"name": &"run",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kxm1x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uo4jt")
+}],
+"loop": true,
+"name": &"skeddadle",
+"speed": 24.0
+}, {
+"frames": [{
+"duration": 1.1,
+"texture": SubResource("AtlasTexture_rka8t")
+}, {
+"duration": 1.1,
+"texture": SubResource("AtlasTexture_5hph3")
+}, {
+"duration": 1.1,
+"texture": SubResource("AtlasTexture_j7kpp")
+}, {
+"duration": 1.1,
+"texture": SubResource("AtlasTexture_bjebc")
+}, {
+"duration": 1.1,
+"texture": SubResource("AtlasTexture_5rr72")
+}, {
+"duration": 1.1,
+"texture": SubResource("AtlasTexture_gyffv")
+}, {
+"duration": 1.1,
+"texture": SubResource("AtlasTexture_1pe0h")
+}, {
+"duration": 1.1,
+"texture": SubResource("AtlasTexture_27bay")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 12.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_64chr"]
+resource_name = "j"
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hbghi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hn12h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ihfcg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rka8t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5hph3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j7kpp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bjebc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5rr72")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gyffv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1pe0h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_27bay")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sof0w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ggavl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ubhxj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_65or1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lhbbi")
+}],
+"loop": false,
+"name": &"all frames",
+"speed": 12.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"blank",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lhbbi")
+}],
+"loop": false,
+"name": &"crouch",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dhlpb")
+}],
+"loop": false,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ihfcg")
+}],
+"loop": false,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hbghi")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hn12h")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ubhxj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_65or1")
+}],
+"loop": false,
+"name": &"look up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sof0w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ggavl")
+}],
+"loop": true,
+"name": &"run",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kxm1x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uo4jt")
+}],
+"loop": true,
+"name": &"skeddadle",
+"speed": 24.0
+}, {
+"frames": [{
+"duration": 1.1,
+"texture": SubResource("AtlasTexture_rka8t")
+}, {
+"duration": 1.1,
+"texture": SubResource("AtlasTexture_5hph3")
+}, {
+"duration": 1.1,
+"texture": SubResource("AtlasTexture_j7kpp")
+}, {
+"duration": 1.1,
+"texture": SubResource("AtlasTexture_bjebc")
+}, {
+"duration": 1.1,
+"texture": SubResource("AtlasTexture_5rr72")
+}, {
+"duration": 1.1,
+"texture": SubResource("AtlasTexture_gyffv")
+}, {
+"duration": 1.1,
+"texture": SubResource("AtlasTexture_1pe0h")
+}, {
+"duration": 1.1,
+"texture": SubResource("AtlasTexture_27bay")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 12.0
+}]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_64chr"]
+size = Vector3(6.788374, 1.2229004, 1.5018158)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fxnvx"]
+
+[sub_resource type="Skin" id="Skin_fxnvx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fxnvx"]
+diffuse_mode = 3
+albedo_color = Color(0.9334574, 0, 0.0063126367, 1)
+
+[node name="Node3D" type="Node3D" unique_id=405408743]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=432324985]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0448766, 0)
+script = SubResource("GDScript_64chr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=2057936111]
+transform = Transform3D(23.713097, 0, 0, 0, 23.713097, 0, 0, 0, 23.713097, 0.00014572346, 6.8849816, -20.952219)
+shape = SubResource("CapsuleShape3D_fxnvx")
+
+[node name="animations Juli" type="AnimatedSprite3D" parent="CharacterBody3D" unique_id=1267991929]
+transform = Transform3D(33.81662, 0, 0, 0, 36.410084, 0, 0, 0, 23.713097, 2.5899267, 13.347839, -20.952219)
+billboard = 1
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_m6v0v")
+animation = &"idle"
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D" unique_id=159149815]
+transform = Transform3D(6.37236, 0, 0, 0, 6.37236, 0, 0, 0, 6.37236, 0.00014572346, 14.717943, 73.90016)
+current = true
+fov = 90.0
+near = 0.015
+
+[node name="JumpSnd" type="AudioStreamPlayer" parent="CharacterBody3D" unique_id=2001763794]
+stream = ExtResource("2_fxnvx")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="CharacterBody3D" unique_id=1814755206]
+light_energy = 9.653
+omni_range = 886.1
+
+[node name="animations Juli" type="AnimatedSprite2D" parent="." unique_id=1899294051]
+texture_repeat = 1
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_64chr")
+animation = &"idle"
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=467069814]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=2122053918]
+transform = Transform3D(57.05428, 0, 0, 0, 57.05428, 0, 0, 0, 57.05428, 10.667501, -46.474476, -19.732939)
+shape = SubResource("BoxShape3D_64chr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1410832543]
+transform = Transform3D(390.60815, 0, 0, 0, -72.84191, 0, 0, 0, 89.6287, 10.717607, -45.562298, -19.204264)
+gi_mode = 2
+mesh = SubResource("BoxMesh_fxnvx")
+skin = SubResource("Skin_fxnvx")
+surface_material_override/0 = SubResource("StandardMaterial3D_fxnvx")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="." unique_id=1150843050]
+transform = Transform3D(0.96704596, 0, -0.25460202, 0, 1, 0, 0.25460202, 0, 0.96704596, 180.84276, 71.771194, -55.129784)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2" unique_id=1020116686]
+transform = Transform3D(57.05428, 0, 0, 0, 57.05428, 0, 0, 0, 57.05428, 10.667501, -46.474476, -19.732939)
+shape = SubResource("BoxShape3D_64chr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2" unique_id=859286328]
+transform = Transform3D(390.60815, 0, 0, 0, -72.84191, 0, 0, 0, 89.6287, 10.717607, -45.562298, -19.204264)
+gi_mode = 2
+mesh = SubResource("BoxMesh_fxnvx")
+skin = SubResource("Skin_fxnvx")
+surface_material_override/0 = SubResource("StandardMaterial3D_fxnvx")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1917308859]

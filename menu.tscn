@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://doyup6avr0oya"]
+
+[sub_resource type="Theme" id="Theme_lti8b"]
+
+[sub_resource type="GDScript" id="GDScript_lti8b"]
+script/source = "extends LinkButton
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+@warning_ignore(\"unused_parameter\")
+func _process(delta: float) -> void:
+	pass
+
+
+func _on_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://levels/volcano_innards_1.tscn\")
+"
+
+[node name="Menu" type="Control" unique_id=1123115534]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="." unique_id=37427322]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 200.00003
+offset_right = 419.0
+offset_bottom = 249.00003
+scale = Vector2(1.8698969, 1.9247291)
+text = "The In-Game
+Alpha"
+horizontal_alignment = 1
+
+[node name="LinkButton" type="LinkButton" parent="." unique_id=306547849]
+layout_mode = 0
+offset_left = 392.0
+offset_top = 392.0
+offset_right = 432.0
+offset_bottom = 432.0
+theme = SubResource("Theme_lti8b")
+text = "play"
+uri = "res://volcano_innards_1.tscn"
+script = SubResource("GDScript_lti8b")
+
+[connection signal="pressed" from="LinkButton" to="LinkButton" method="_on_pressed"]

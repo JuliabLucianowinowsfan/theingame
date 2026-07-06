@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://d1abfyip6rofk"]
+
+[ext_resource type="Texture2D" uid="uid://b7541nd32a6k0" path="res://CHECKPOINT DEL CULO.png" id="1_lgkil"]
+
+[sub_resource type="GDScript" id="GDScript_lgkil"]
+resource_name = "Sing"
+script/source = "extends Area2D
+
+@export var id: int
+var current_active_chk = 0
+
+func _on_body_entered(body) -> void:
+	if body.is_in_group(\"juli\"):
+		current_active_chk += 1
+		print(\"chk\")
+		queue_free()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nsmd3"]
+size = Vector2(112, 96)
+
+[node name="sing" type="Node2D" unique_id=2042319848]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1746938060]
+texture = ExtResource("1_lgkil")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2061896756]
+script = SubResource("GDScript_lgkil")
+id = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=15509741]
+position = Vector2(0, 16)
+shape = SubResource("RectangleShape2D_nsmd3")
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
